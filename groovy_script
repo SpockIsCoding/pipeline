@@ -47,8 +47,8 @@ agent any
                 
                 sshagent(['my-k8s']) {
              
-            sh 'ssh  -o StrictHostKeyChecking=no antonio@172.31.80.101'
-            sh 'scp /var/lib/jenkins/workspace/project/* antonio@172.31.80.101:/home/antonio'
+            sh 'ssh  -o StrictHostKeyChecking=no antonio@10.10.10.200'
+            sh 'scp /var/lib/jenkins/workspace/project/* antonio@10.10.10.200:/home/antonio'
 }
         
         
