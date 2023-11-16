@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+  stages{
+ stage('Git Checkout') {
+            steps {
+                script {
+                    git branch: 'main', url: 'https://github.com/SpockIsCoding/pipeline'
+                }
+            }
+        }
+        stage('Sending Dockerfile to Ansible Server Over SSH'){
+            sshagent(['ansible-demo']) {
+                sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200'
+                sh 'scp /var/lib/jenkins/workspace/project/* antonio@10.10.10.200:/home/antonio'
+}
+    }
+    
+        stage('Docker Build Image'){
+            sshagent(['ansible-demo']){
+                stage('Docker Build Image') {
+                    sshagent(['ansible-demo']) {
+                sh 'ssh -o StrictHostKeyChecking=no -A antonio@10.10.10.200 "cd /home/antonio && sudo docker image build -t $JOB_NAME:v1.$BUILD_ID ."'
+    }
+                }
+}
+        stage('Docker image tagging'){
+                sshagent(['ansible-demo']){
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 cd /home/antonio'
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 sudo docker image tag $JOB_NAME:v1.$BUILD_ID spockiscoding/$JOB_NAME:v1.$BUILD_ID'
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 sudo docker image tag $JOB_NAME:v1.$BUILD_ID spockiscoding/$JOB_NAME:latest'
+
+                }
+        }
+        
+     stage ('Push Docker Images to DockerHub'){
+         sshagent(['ansible-demo']) {
+             withCredentials([string(credentialsId: 'dockerhub_passwd', variable: 'dockerhub_passwd')]) {
+                     sh 'docker login -u spockiscoding -p $dockerhub_passwd'
+
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 sudo docker image push spockiscoding/$JOB_NAME:v1.$BUILD_ID'
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 sudo docker image push spockiscoding/$JOB_NAME:latest'
+                     sh 'ssh -o StrictHostKeyChecking=no  antonio@10.10.10.200 sudo docker image rm spockiscoding/$JOB_NAME:v1.$BUILD_ID spockiscoding/$JOB_NAME:latest $JOB_NAME:v1.$BUILD_ID'
+}
+     }
+}
+    stage ('Copy Files from ansible to K8S Server'){
+                
+                sshagent(['my-k8s']) {
+             
+            sh 'ssh  -o StrictHostKeyChecking=no antonio@172.31.80.101'
+            sh 'scp /var/lib/jenkins/workspace/project/* antonio@172.31.80.101:/home/antonio'
+}
+        
+        
+        
+    }
+ 
+ stage ('Kubernetes deployment using ansible'){
+     sshagent(['ansible-demo']) {
+    sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 cd /home/antonio'
+    sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 ansible -m ping node'
+    sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 ansible-playbook ansible.yml'
+}
+     
+ }
+ 
+ 
+    }
+}
