@@ -8,4 +8,4 @@ To Show My Pipeline Project.
 - User will use de application.
 
   
-![image](https://github.com/SpockIsCoding/pipeline/blob/main/pipeline_page-0001.jpg)
+![image](https://github.com/SpockIsCoding/pipeline/blob/main/pipeline.jpg)
