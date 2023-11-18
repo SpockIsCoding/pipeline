@@ -1,9 +1,9 @@
 kind: Service                             
 apiVersion: v1
 metadata:
-  name: mrdevops
+  name: minha_aplicacao
   labels:
-    app: mrdevops
+    app: minha_aplicacao
 spec:
   ports:
     - port: 8080                               
