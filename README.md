@@ -1,3 +1,3 @@
 # pipeline
 My Pipeline
-![image](https://github.com/SpockIsCoding/pipeline/assets/97816800/3788d484-24f4-4799-9670-fe18c65317b4)
+![image](https://github.com/SpockIsCoding/pipeline/blob/main/pipeline_page-0001.jpg)https://github.com/SpockIsCoding/pipeline/blob/main/pipeline_page-0001.jpg)
