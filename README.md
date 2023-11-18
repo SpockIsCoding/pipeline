@@ -5,7 +5,7 @@ To Show My Pipeline Project.
 - Jenkins ans Sonarquibe will do the application test (quality). Jenkins will start Ansible Playbooks.
 - Ansible will build Docker images (with new commit files), Tagging, and pushing to Registry (Docker Hub/Harbor).
 - Ansible will deploy the application to MicroK8s (Kubernetes cluster).
-- User will use de application.
+- User will use the application.
 
   
 ![image](https://github.com/SpockIsCoding/pipeline/blob/main/pipeline.jpg)
