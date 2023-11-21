@@ -1,20 +1,20 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-   name: minha_aplicacao
+   name: coffee
 spec:
    replicas: 2
    selector:      # tells the controller which pods to watch/belong to
     matchLabels:
-     app: minha_aplicacao
+     app: app
    template:
       metadata:
         labels:
-          app: minha_aplicacao
+          app: app
       spec:
        containers:
-        - name: minha_aplicacao
-          image: spockiscoding/meusite:2.0 #image_name_dockerhub
+        - name: coffe
+          image: spockiscoding/meusite:3.0 #image_name_dockerhub
           imagePullPolicy: Always
           ports:
           - containerPort: 80
