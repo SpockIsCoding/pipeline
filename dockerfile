@@ -12,7 +12,7 @@ RUN yum install -y httpd \
  unzip
 ADD https://www.free-css.com/assets/files/free-css-templates/download/page289/zon.zip /var/www/html/
 WORKDIR /var/www/html/
-RUN unzip zon.zip.zip
+RUN unzip zon.zip
 RUN cp -rvf zon/* .
 RUN rm -rf zon zon.zip
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
