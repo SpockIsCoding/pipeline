@@ -1,14 +1,14 @@
 kind: Service                             
 apiVersion: v1
 metadata:
-  name: minha_aplicacao
+  name: coffee
   labels:
-    app: minha_aplicacao
+    app: app
 spec:
   ports:
     - port: 8085                               
       targetPort: 80                    
       nodePort: 31200
   selector:
-    app: minha_aplicacao                    
-  type: LoadBalancer   
+    app: app                    
+  type: NodePort  
