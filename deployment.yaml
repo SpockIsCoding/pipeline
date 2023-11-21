@@ -14,7 +14,7 @@ spec:
       spec:
        containers:
         - name: minha_aplicacao
-          image: shazabtanveer/project #image_name_dockerhub
+          image: spockiscoding/meusite:2.0 #image_name_dockerhub
           imagePullPolicy: Always
           ports:
           - containerPort: 80
