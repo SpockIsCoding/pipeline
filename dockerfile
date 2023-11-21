@@ -10,10 +10,10 @@ MAINTAINER spockiscoding@gmail.com
 RUN yum install -y httpd \
  zip\
  unzip
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page5/the-hobbit.zip /var/www/html/
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page289/zon.zip /var/www/html/
 WORKDIR /var/www/html/
-RUN unzip the-hobbit.zip
-RUN cp -rvf the-hobbit/* .
-RUN rm -rf the-hobbit the-hobbit.zip
+RUN unzip zon.zip.zip
+RUN cp -rvf zon/* .
+RUN rm -rf zon zon.zip
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 EXPOSE 80 22 
