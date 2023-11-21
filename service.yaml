@@ -6,9 +6,9 @@ metadata:
     app: minha_aplicacao
 spec:
   ports:
-    - port: 8080                               
+    - port: 8085                               
       targetPort: 80                    
       nodePort: 31200
   selector:
-    app: mrdevops                    
+    app: minha_aplicacao                    
   type: LoadBalancer   
