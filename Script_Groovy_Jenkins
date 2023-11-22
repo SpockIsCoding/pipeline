@@ -16,3 +16,15 @@ pipeline {
         sh 'scp /var/lib/jenkins/workspace/Kubernetes/* antonio@10.10.10.200:/home/antonio/kubernetes_project'
         }
     }
+}
+stage('Docker image tagging') {
+    steps {
+    sshagent(['ansible-demo']) {
+        sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 cd /home/antonio/kubernetes_project'
+        sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 sudo docker image tag $JOB_NAME:v1.$BUILD_ID spockiscoding/$JOB_NAME:v1.$BUILD_ID'
+        sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200 sudo docker image tag $JOB_NAME:v1.$BUILD_ID spockiscoding/$JOB_NAME:latest'
+    }
+}
+}
+}
+}
