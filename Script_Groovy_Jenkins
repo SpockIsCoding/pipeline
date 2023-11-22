@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Envia do Dockerfile para  Ansible Server via protocolo SSH') {
             steps {
-        sshagent(['ansible-demo']) {
+        sshagent(['Ansible Demo']) {
         sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200'
         sh 'scp /var/lib/jenkins/workspace/Kubernetes/* antonio@10.10.10.200:/home/antonio/kubernetes_project'
         }
