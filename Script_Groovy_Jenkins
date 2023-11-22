@@ -2,12 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Git Checkout') {
+        stage('Git checkout') {
             steps {
                 script {
                     git branch: 'main', url: 'https://github.com/SpockIsCoding/pipeline'
                 }
             }
         }
+        stage('Envia do Dockerfile para  Ansible Server via protocolo SSH') {
+            steps {
+        sshagent(['ansible-demo']) {
+        sh 'ssh -o StrictHostKeyChecking=no antonio@10.10.10.200'
+        sh 'scp /var/lib/jenkins/workspace/Kubernetes/* antonio@10.10.10.200:/home/antonio/kubernetes_project'
+        }
     }
-}
